@@ -6,14 +6,17 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "test": "set NODE_ENV=test&&jest --watchAll"
+    "test": "NODE_ENV=test jest --watchAll",
+    "cucumber": "DB_PATH=database-test.db cucumber-js --exit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/chai": "^5.0.1",
     "bcrypt": "^5.1.1",
+    "chai": "^4.3.10",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -32,7 +35,9 @@
     "@types/sqlite3": "^3.1.11",
     "babel-jest": "^29.7.0",
     "concurrently": "^9.1.2",
+    "cucumber-tsflow": "^4.4.4",
     "nodemon": "^3.1.9",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
