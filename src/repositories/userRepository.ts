@@ -1,12 +1,13 @@
+import { PrismaClient } from "@prisma/client";
 import { openDb } from "../config/database";
 import { User } from "../models/userModel";
+import { query } from "express";
 
 export class UserRepository {
   constructor() {}
 
   public async createUser(user: User): Promise<void> {
     const db = await openDb();
-
     try {
       await db.run(
         "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
@@ -27,5 +28,25 @@ export class UserRepository {
       [email]
     );
     return user || undefined;
+  }
+
+  public async getAllUsers(): Promise<void> {
+    const prisma = new PrismaClient();
+    const typeDefs = `
+      type Query {
+        allUsers: [User]
+      }
+      type User {
+        username: String
+        email: String
+  }`;
+
+    const resolver = {
+      Query: {
+        allUsers: async () => {
+          return await prisma.user.findMany();
+        },
+      },
+    };
   }
 }
